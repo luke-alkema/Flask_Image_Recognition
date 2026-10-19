@@ -19,15 +19,22 @@ def main():
 @app.route('/prediction', methods=['POST'])
 def predict_image_file():
     """Predict the digit in the uploaded image."""
-    try:
-        if request.method == 'POST':
-            img = preprocess_img(request.files['file'].stream)
-            pred = predict_result(img)
-            return render_template("result.html", predictions=str(pred))
+    error = None
+    pred = None
 
-    except:
-        error = "File cannot be processed."
-        return render_template("result.html", err=error)
+    try:
+        if 'file' not in request.files or request.files['file'].filename == '':
+            raise ValueError("No file uploaded or selected.")
+
+        file_stream = request.files['file'].stream
+        img = preprocess_img(file_stream)
+        pred_value = predict_result(img)
+        pred = str(pred_value)
+    #Catch specific exceptions related to file processing and prediction
+    except (ValueError, KeyError, OSError, RuntimeError) as e:
+        error = f"File cannot be processed. Details: {str(e)}"
+    #Make sure always return the result.html template with predictions and error message (if any)
+    return render_template("result.html", predictions=pred, err=error)
 
 
 # Driver code
