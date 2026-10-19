@@ -3,6 +3,21 @@
 
 from io import BytesIO
 
+def test_home_page_success(client):
+    """Test that the home page loads successfully with a 200 status code."""
+    response = client.get("/")
+
+    # Check that the server responded successfully
+    assert response.status_code == 200, (
+        f"Expected status code 200, but got {response.status_code}"
+    )
+
+    # Optional: Check that key content or title appears in the HTML response
+    assert b"Welcome" in response.data or b"Sign" in response.data, (
+        "Home page response data did not contain expected content."
+    )
+
+
 def test_successful_prediction(client):
     """Test the successful image upload and prediction."""
     # Create a mock image file with minimal valid content
