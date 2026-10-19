@@ -1,4 +1,4 @@
-"""Unit Tests for the Flask Image Recognition Application"""
+"""Unit Tests for Flash Application"""
 import pytest
 import numpy as np
 from keras.models import load_model
@@ -8,8 +8,8 @@ from model import preprocess_img, predict_result  # Adjust based on your structu
 @pytest.fixture(scope="module")
 def model():
     """Load the model once for all tests."""
-    model = load_model("digit_model.h5")  # Adjust path as needed
-    return model
+    instance_model = load_model("digit_model.h5")  # Adjust path as needed
+    return instance_model
 
 # Basic Tests
 
