@@ -11,10 +11,10 @@ def client():
     - Purpose: Set up a test client for making requests to the Flask app during testing.
     - Usage: Provides a `client` object to use for HTTP request simulations.
     """
-    with app.test_client() as instance_client:
-        yield instance_client
+    with app.test_client() as client:
+        yield client
 
-def test_acceptance_missing_file(instance_client):
+def test_acceptance_missing_file(client):
     """
     Test Case: No File Uploaded
     - Purpose: Validate the application's behavior when no file is provided in the upload request.
@@ -24,7 +24,7 @@ def test_acceptance_missing_file(instance_client):
         - Verify that the response includes an appropriate error message.
     """
     # Simulate a POST request with no file data
-    response = instance_client.post("/prediction", data={}, content_type="multipart/form-data")
+    response = client.post("/prediction", data={}, content_type="multipart/form-data")
 
     # Assertions:
     # 1. Ensure the response status code is 200, indicating the request was processed.

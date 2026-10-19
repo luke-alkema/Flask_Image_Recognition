@@ -8,8 +8,8 @@ from model import preprocess_img, predict_result  # Adjust based on your structu
 @pytest.fixture(scope="module")
 def model():
     """Load the model once for all tests."""
-    instance_model = load_model("digit_model.h5")  # Adjust path as needed
-    return instance_model
+    model = load_model("digit_model.h5")  # Adjust path as needed
+    return model
 
 # Basic Tests
 
