@@ -1,8 +1,8 @@
+"""Unit Tests for the Flask Image Recognition Application"""
 # test_integration_sad.py
 
 import pytest
 from app import app
-from io import BytesIO
 
 @pytest.fixture
 def client():
